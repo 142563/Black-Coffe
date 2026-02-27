@@ -1,0 +1,26 @@
+[
+  {
+    "id": 101,
+    "name": "Caramel Latte",
+    "categoryKey": "hot",
+    "priceFrom": 18,
+    "badgeText": "Popular",
+    "imageUrl": "/assets/products/placeholder.jpg"
+  },
+  {
+    "id": 205,
+    "name": "Iced Mocha",
+    "categoryKey": "cold",
+    "priceFrom": 22,
+    "badgeText": "Nuevo",
+    "imageUrl": "/assets/products/placeholder.jpg"
+  },
+  {
+    "id": 330,
+    "name": "Croissant de Jamon",
+    "categoryKey": "savory",
+    "priceFrom": 20,
+    "badgeText": "Recomendado",
+    "imageUrl": "/assets/products/placeholder.jpg"
+  }
+]

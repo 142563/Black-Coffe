@@ -1,0 +1,15 @@
+{
+  "name": "Black Coffe",
+  "tagline": "Cafe premium, rapido y a tu manera",
+  "logoUrl": "/assets/brand/logo-blackcoffe.svg",
+  "accentColor": "#C6A15B",
+  "phone": "+502 0000-0000",
+  "whatsapp": "+502 0000-0000",
+  "address": "Escuintla, Guatemala",
+  "hoursText": "Lun-Vie 7:00-19:00 | Sab-Dom 8:00-18:00",
+  "businessMessage": "Pedidos listos en 10-15 min | Calidad premium | Reservas disponibles",
+  "socialLinks": {
+    "instagram": "https://instagram.com/",
+    "facebook": "https://facebook.com/"
+  }
+}

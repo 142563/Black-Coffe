@@ -3,6 +3,7 @@ using BlackCoffe.Application.DTOs.Catalog;
 using BlackCoffe.Application.DTOs.Inventory;
 using BlackCoffe.Application.DTOs.Orders;
 using BlackCoffe.Application.DTOs.Reservations;
+using BlackCoffe.Application.DTOs.Storefront;
 using BlackCoffe.Application.DTOs.Tables;
 using BlackCoffe.Application.DTOs.Users;
 
@@ -64,4 +65,20 @@ public interface IInventoryService
     Task<InventoryItemDto> CreateItemAsync(CreateInventoryItemRequest request, CancellationToken cancellationToken = default);
     Task CreateMovementAsync(CreateStockMovementRequest request, CancellationToken cancellationToken = default);
     Task<IReadOnlyCollection<LowStockAlertDto>> GetLowStockAlertsAsync(CancellationToken cancellationToken = default);
+}
+
+public interface IStorefrontService
+{
+    Task<StorefrontSettingsDto> GetSettingsAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyCollection<StorefrontBannerDto>> GetBannersAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyCollection<StorefrontCategoryDto>> GetMenuCategoriesAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyCollection<FeaturedMenuItemDto>> GetFeaturedMenuAsync(CancellationToken cancellationToken = default);
+}
+
+public interface ICommerceOrderService
+{
+    Task<OrderPreviewResponseDto> PreviewAsync(OrderPreviewRequestDto request, CancellationToken cancellationToken = default);
+    Task<OrderCreateResponseDto> CreateAsync(Guid userId, PlaceOrderRequestDto request, CancellationToken cancellationToken = default);
+    Task<InvoiceDto> GetInvoiceAsync(Guid orderId, Guid userId, bool isAdminOrWorker, CancellationToken cancellationToken = default);
+    Task UpdateStatusAsync(Guid orderId, string status, CancellationToken cancellationToken = default);
 }

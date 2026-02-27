@@ -157,6 +157,46 @@
     @apply grid gap-3;
   }
 
+  .business-message {
+    @apply flex items-center gap-2 rounded-xl border border-brand-caramel bg-amber-50/70 px-4 py-3 text-sm text-brand-black;
+  }
+
+  .business-message p {
+    @apply m-0;
+  }
+
+  .banner-card {
+    @apply gap-2;
+  }
+
+  .banner-card h2 {
+    @apply m-0 text-2xl font-semibold;
+  }
+
+  .banner-card p {
+    @apply m-0 text-sm text-neutral-600;
+  }
+
+  .featured-card {
+    @apply rounded-2xl border border-brand-gray1 bg-white p-3 shadow-soft transition duration-200 ease-out hover:-translate-y-1 hover:shadow-soft-lg;
+  }
+
+  .featured-card__image {
+    @apply mb-3 h-36 overflow-hidden rounded-xl bg-brand-gray1;
+  }
+
+  .featured-card__image img {
+    @apply h-full w-full object-cover;
+  }
+
+  .featured-card h3 {
+    @apply m-0 text-lg font-semibold;
+  }
+
+  .featured-card p {
+    @apply m-0 text-sm text-neutral-600;
+  }
+
   .feature-card h2 {
     @apply m-0 text-2xl font-semibold;
   }
@@ -345,6 +385,18 @@
     @apply grid gap-3;
   }
 
+  .cart-summary-grid {
+    @apply mt-4 grid gap-2 rounded-2xl border border-brand-gray1 bg-neutral-50 p-4;
+  }
+
+  .cart-summary-row {
+    @apply flex items-center justify-between text-sm text-neutral-700;
+  }
+
+  .cart-summary-row--total {
+    @apply mt-1 border-t border-brand-gray1 pt-2 text-base font-semibold text-brand-black;
+  }
+
   .cart-line {
     @apply flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-brand-gray1 bg-neutral-50 p-4;
   }
@@ -367,6 +419,58 @@
 
   .checkout-section {
     @apply grid gap-4;
+  }
+
+  .checkout-summary-card {
+    @apply grid gap-2 rounded-2xl border border-brand-gray1 bg-neutral-50 p-4;
+  }
+
+  .checkout-summary-card h3 {
+    @apply m-0 text-base font-semibold;
+  }
+
+  .checkout-summary-row {
+    @apply flex items-center justify-between text-sm text-neutral-700;
+  }
+
+  .checkout-summary-row--total {
+    @apply mt-1 border-t border-brand-gray1 pt-2 text-base font-semibold text-brand-black;
+  }
+
+  .order-confirmation {
+    @apply grid gap-4 rounded-2xl border border-brand-gray1 bg-neutral-50 p-5;
+  }
+
+  .order-confirmation h2 {
+    @apply m-0 text-2xl font-semibold;
+  }
+
+  .order-confirmation p {
+    @apply m-0 text-sm text-neutral-600;
+  }
+
+  .invoice-printable {
+    @apply grid gap-4;
+  }
+
+  .invoice-meta {
+    @apply grid gap-1 text-sm text-neutral-700;
+  }
+
+  .invoice-table {
+    @apply overflow-x-auto rounded-2xl border border-brand-gray1;
+  }
+
+  .invoice-row {
+    @apply grid min-w-[560px] grid-cols-[2fr,1fr,1fr,1fr] gap-3 border-b border-brand-gray1 px-4 py-3 text-sm;
+  }
+
+  .invoice-row:last-child {
+    @apply border-b-0;
+  }
+
+  .invoice-row--head {
+    @apply bg-brand-black text-xs font-semibold uppercase tracking-[0.12em] text-brand-white;
   }
 
   .checkout-mode {
@@ -525,16 +629,28 @@
     @apply border-t border-brand-gray1 p-4;
   }
 
+  .drawer-total-grid {
+    @apply mb-3 grid gap-2;
+  }
+
   .drawer-total {
-    @apply mb-3 flex items-center justify-between;
+    @apply flex items-center justify-between rounded-xl border border-brand-gray1 bg-neutral-50 px-3 py-2;
   }
 
   .drawer-total span {
-    @apply text-sm text-neutral-500;
+    @apply text-xs text-neutral-500;
   }
 
   .drawer-total strong {
-    @apply text-lg font-semibold;
+    @apply text-sm font-semibold;
+  }
+
+  .drawer-total--final {
+    @apply border-brand-caramel bg-amber-50/60;
+  }
+
+  .drawer-total--final strong {
+    @apply text-base;
   }
 
   .toast-wrap {
@@ -673,5 +789,28 @@
 
   * {
     transition: none !important;
+  }
+}
+
+@media print {
+  header,
+  .drawer-root,
+  .toast-wrap,
+  .row-actions,
+  .menu-chip-bar,
+  .catalog-sticky,
+  .cart-sticky,
+  nav.breadcrumb {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .panel {
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
   }
 }

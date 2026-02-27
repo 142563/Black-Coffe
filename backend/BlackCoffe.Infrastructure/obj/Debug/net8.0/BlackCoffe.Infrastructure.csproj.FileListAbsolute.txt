@@ -36,3 +36,4 @@ C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Infrastructure\ob
 C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Infrastructure\obj\Debug\net8.0\BlackCoffe.Infrastructure.pdb
 C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Infrastructure\obj\Debug\net8.0\BlackCoffe.Infrastructure.genruntimeconfig.cache
 C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Infrastructure\obj\Debug\net8.0\ref\BlackCoffe.Infrastructure.dll
+C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Infrastructure\obj\Debug\net8.0\BlackCoffe.Infrastructure.sourcelink.json

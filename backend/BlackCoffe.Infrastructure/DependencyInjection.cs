@@ -29,9 +29,11 @@ public static class DependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ICatalogService, CatalogService>();
         services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<ICommerceOrderService, CommerceOrderService>();
         services.AddScoped<IReservationService, ReservationService>();
         services.AddScoped<ITableService, TableService>();
         services.AddScoped<IInventoryService, InventoryService>();
+        services.AddScoped<IStorefrontService, StorefrontService>();
         services.AddScoped<ITokenService, TokenService>();
 
         var jwtOptions = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>() ?? new JwtOptions();
@@ -56,7 +58,8 @@ public static class DependencyInjection
         services.AddAuthorization(options =>
         {
             options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-            options.AddPolicy("AdminOrStaff", policy => policy.RequireRole("Admin", "Staff"));
+            options.AddPolicy("AdminOrStaff", policy => policy.RequireRole("Admin", "Staff", "Worker"));
+            options.AddPolicy("AdminOrWorker", policy => policy.RequireRole("Admin", "Staff", "Worker"));
         });
 
         return services;

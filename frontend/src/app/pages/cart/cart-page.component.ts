@@ -20,10 +20,10 @@ import { IconComponent } from '../../shared/icon/icon.component';
       </div>
     </section>
 
-    <section class="panel section" *ngIf="items.length > 0">
-      <p class="section__eyebrow">CARRITO</p>
-      <h1 class="section__title">Revisa tu pedido</h1>
-      <p class="section__copy">Ajusta cantidades con controles rapidos y confirma en checkout.</p>
+      <section class="panel section" *ngIf="items.length > 0">
+        <p class="section__eyebrow">CARRITO</p>
+        <h1 class="section__title">Revisa tu pedido</h1>
+        <p class="section__copy">Ajusta cantidades con controles rapidos y confirma en checkout.</p>
 
       <div class="cart-list">
         <article class="cart-line fade-up" *ngFor="let item of items; let i = index" [style.--delay]="(i * 45) + 'ms'">
@@ -42,6 +42,25 @@ import { IconComponent } from '../../shared/icon/icon.component';
             <button class="btn-outline btn-small" type="button" (click)="remove(item.productId)">Eliminar</button>
           </div>
         </article>
+      </div>
+
+      <div class="cart-summary-grid">
+        <div class="cart-summary-row">
+          <span>Subtotal</span>
+          <strong>Q{{ subtotal | number:'1.2-2' }}</strong>
+        </div>
+        <div class="cart-summary-row">
+          <span>Envio</span>
+          <strong>Q{{ shipping | number:'1.2-2' }} (Gratis)</strong>
+        </div>
+        <div class="cart-summary-row">
+          <span>IVA (12%)</span>
+          <strong>Q{{ ivaAmount | number:'1.2-2' }}</strong>
+        </div>
+        <div class="cart-summary-row cart-summary-row--total">
+          <span>Total</span>
+          <strong>Q{{ total | number:'1.2-2' }}</strong>
+        </div>
       </div>
     </section>
 
@@ -66,7 +85,19 @@ export class CartPageComponent {
   }
 
   get total() {
-    return this.cart.total;
+    return this.cart.grandTotal;
+  }
+
+  get subtotal() {
+    return this.cart.subtotal;
+  }
+
+  get shipping() {
+    return this.cart.shipping;
+  }
+
+  get ivaAmount() {
+    return this.cart.ivaAmount;
   }
 
   remove(productId: string): void {

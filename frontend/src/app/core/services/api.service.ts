@@ -17,6 +17,14 @@ export class ApiService {
   }
 
   private buildUrl(path: string): string {
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      return path;
+    }
+
+    if (path.startsWith('/api/')) {
+      return path;
+    }
+
     return `${this.apiBase}${path.startsWith('/') ? path : `/${path}`}`;
   }
 

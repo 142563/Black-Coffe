@@ -28,3 +28,4 @@ C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Application\obj\D
 C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Application\obj\Debug\net8.0\refint\BlackCoffe.Application.dll
 C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Application\obj\Debug\net8.0\BlackCoffe.Application.pdb
 C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Application\obj\Debug\net8.0\ref\BlackCoffe.Application.dll
+C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Application\obj\Debug\net8.0\BlackCoffe.Application.sourcelink.json

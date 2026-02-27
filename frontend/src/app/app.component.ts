@@ -66,7 +66,19 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   get drawerSubtotal(): number {
-    return this.cart.total;
+    return this.cart.subtotal;
+  }
+
+  get drawerIvaAmount(): number {
+    return this.cart.ivaAmount;
+  }
+
+  get drawerShipping(): number {
+    return this.cart.shipping;
+  }
+
+  get drawerTotal(): number {
+    return this.cart.grandTotal;
   }
 
   ngOnInit(): void {

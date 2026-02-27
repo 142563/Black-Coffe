@@ -12,15 +12,15 @@ import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApiService } from '../../core/services/api.service';
 import { CartService } from '../../core/services/cart.service';
+import { StorefrontService } from '../../core/services/storefront.service';
 import { ToastService } from '../../core/services/toast.service';
-import { CartAddInput, CartItem } from '../../models/cart.models';
-import { MenuBoardResponse, MenuOption, MenuRow, MenuSection } from '../../models/catalog.models';
+import { CartItem } from '../../models/cart.models';
+import { MenuBoardResponse, MenuOption, MenuSection } from '../../models/catalog.models';
+import { MenuCategory } from '../../models/storefront.models';
 import { IconComponent } from '../../shared/icon/icon.component';
 
-type MenuCategoryKey = 'hot' | 'cold' | 'savory' | 'sweet';
-
-interface MenuCategory {
-  key: MenuCategoryKey;
+interface MenuCategoryView {
+  key: string;
   label: string;
   icon: string;
   section?: MenuSection;
@@ -79,7 +79,7 @@ interface ProductCardView {
         <button
           type="button"
           class="menu-chip"
-          *ngFor="let category of categories"
+          *ngFor="let category of cardsByCategory"
           [class.menu-chip--active]="activeCategory === category.key"
           (click)="scrollToCategory(category.key)"
         >
@@ -145,7 +145,7 @@ interface ProductCardView {
       <section class="catalog-sticky" *ngIf="!loading && !errorMessage && cardsByCategory.length > 0">
         <div class="catalog-sticky__summary">
           <strong>{{ cartItemsCount }} {{ cartItemsCount === 1 ? 'item' : 'items' }} en carrito</strong>
-          <span>Subtotal Q{{ cartTotal | number:'1.2-2' }}</span>
+          <span>Subtotal Q{{ cartSubtotal | number:'1.2-2' }} | IVA Q{{ cartIvaAmount | number:'1.2-2' }}</span>
         </div>
         <button class="btn-primary" type="button" [class.btn-disabled]="cartItemsCount === 0" (click)="openDrawer()">
           Ver carrito
@@ -157,20 +157,15 @@ interface ProductCardView {
 export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly skeletonRows = Array.from({ length: 8 }, (_, index) => index);
 
-  readonly categories: MenuCategory[] = [
-    { key: 'hot', label: 'Hot', icon: 'cup' },
-    { key: 'cold', label: 'Cold', icon: 'spark' },
-    { key: 'savory', label: 'Savory', icon: 'coffee' },
-    { key: 'sweet', label: 'Sweet', icon: 'check' }
-  ];
-
+  categories: MenuCategoryView[] = [];
   sections: MenuSection[] = [];
   loading = true;
   errorMessage = '';
   cartItemsCount = 0;
-  cartTotal = 0;
-  activeCategory: MenuCategoryKey = 'hot';
-  cardsByCategory: MenuCategory[] = [];
+  cartSubtotal = 0;
+  cartIvaAmount = 0;
+  activeCategory = 'hot';
+  cardsByCategory: MenuCategoryView[] = [];
 
   @ViewChildren('categorySection') categorySections?: QueryList<ElementRef<HTMLElement>>;
 
@@ -184,6 +179,7 @@ export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private readonly api: ApiService,
     private readonly cart: CartService,
+    private readonly storefrontService: StorefrontService,
     private readonly toast: ToastService
   ) {}
 
@@ -213,7 +209,7 @@ export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
     await this.loadMenuBoard();
   }
 
-  cardsForCategory(category: MenuCategory): ProductCardView[] {
+  cardsForCategory(category: MenuCategoryView): ProductCardView[] {
     const section = category.section;
     if (!section) {
       return [];
@@ -236,11 +232,11 @@ export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
     return sizeLabel.toUpperCase();
   }
 
-  sectionDomId(categoryKey: MenuCategoryKey): string {
+  sectionDomId(categoryKey: string): string {
     return `menu-section-${categoryKey}`;
   }
 
-  scrollToCategory(categoryKey: MenuCategoryKey): void {
+  scrollToCategory(categoryKey: string): void {
     const element = document.getElementById(this.sectionDomId(categoryKey));
     if (!element) {
       return;
@@ -317,7 +313,8 @@ export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.quantities = nextQuantities;
     this.cartItemsCount = items.reduce((sum, item) => sum + item.quantity, 0);
-    this.cartTotal = items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
+    this.cartSubtotal = this.cart.subtotal;
+    this.cartIvaAmount = this.cart.ivaAmount;
   }
 
   private async loadMenuBoard(): Promise<void> {
@@ -325,8 +322,13 @@ export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.errorMessage = '';
 
     try {
-      const response = await this.api.get<MenuBoardResponse>('/catalog/menu-board');
+      const [response, categoryResponse] = await Promise.all([
+        this.api.get<MenuBoardResponse>('/catalog/menu-board'),
+        this.storefrontService.getMenuCategories()
+      ]);
+
       this.sections = response.sections;
+      this.categories = this.buildCategoryViews(categoryResponse);
 
       this.cardsByCategory = this.categories
         .map((category) => ({
@@ -344,14 +346,14 @@ export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
       requestAnimationFrame(() => this.setupSectionObserver());
     } catch (error: unknown) {
-      const httpError = error as { status?: number; error?: { message?: string }; message?: string };
+      const httpError = error as { status?: number; error?: { message?: string; detail?: string }; message?: string };
 
       if (httpError?.status === 0) {
         this.errorMessage = 'No hay conexion con backend. Levanta la API en http://localhost:5088.';
       } else if (httpError?.status === 503) {
-        this.errorMessage = httpError.error?.message ?? 'Base de datos no disponible. Intenta nuevamente.';
+        this.errorMessage = httpError.error?.detail ?? 'Base de datos no disponible. Intenta nuevamente.';
       } else {
-        this.errorMessage = httpError.error?.message ?? httpError.message ?? 'Error al cargar el menu.';
+        this.errorMessage = httpError.error?.detail ?? httpError.message ?? 'Error al cargar el menu.';
       }
 
       this.toast.error(this.errorMessage);
@@ -360,7 +362,7 @@ export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private mapCategory(sectionKey: string): MenuCategoryKey {
+  private mapCategory(sectionKey: string): string {
     if (sectionKey.includes('hot')) {
       return 'hot';
     }
@@ -374,6 +376,33 @@ export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     return 'sweet';
+  }
+
+  private buildCategoryViews(categories: MenuCategory[]): MenuCategoryView[] {
+    const iconMap: Record<string, string> = {
+      hot: 'cup',
+      cold: 'spark',
+      savory: 'coffee',
+      sweet: 'check'
+    };
+
+    if (!categories.length) {
+      return [
+        { key: 'hot', label: 'Hot Drinks', icon: 'cup' },
+        { key: 'cold', label: 'Cold Drinks', icon: 'spark' },
+        { key: 'savory', label: 'Food - Savory', icon: 'coffee' },
+        { key: 'sweet', label: 'Food - Sweet', icon: 'check' }
+      ];
+    }
+
+    return categories
+      .filter((x) => x.visible)
+      .sort((a, b) => a.order - b.order)
+      .map((x) => ({
+        key: x.key,
+        label: x.name,
+        icon: iconMap[x.iconKey] ?? 'spark'
+      }));
   }
 
   private initializeSelectionState(): void {
@@ -416,7 +445,7 @@ export class CatalogPageComponent implements OnInit, AfterViewInit, OnDestroy {
         return;
       }
 
-      const category = visible[0].target.getAttribute('data-category') as MenuCategoryKey | null;
+      const category = visible[0].target.getAttribute('data-category');
       if (category) {
         this.activeCategory = category;
       }

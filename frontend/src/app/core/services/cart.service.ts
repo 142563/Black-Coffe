@@ -6,6 +6,8 @@ import { Product } from '../../models/catalog.models';
 @Injectable({ providedIn: 'root' })
 export class CartService {
   private readonly storageKey = 'black_coffe_cart';
+  private readonly ivaRate = 0.12;
+  private readonly shippingCost = 0;
   private readonly itemsState = new BehaviorSubject<CartItem[]>(this.loadStoredItems());
 
   readonly items$ = this.itemsState.asObservable();
@@ -16,6 +18,22 @@ export class CartService {
 
   get total(): number {
     return this.snapshot.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0);
+  }
+
+  get subtotal(): number {
+    return this.roundMoney(this.total);
+  }
+
+  get ivaAmount(): number {
+    return this.roundMoney(this.subtotal * this.ivaRate);
+  }
+
+  get shipping(): number {
+    return this.shippingCost;
+  }
+
+  get grandTotal(): number {
+    return this.roundMoney(this.subtotal + this.shipping + this.ivaAmount);
   }
 
   get totalItems(): number {
@@ -161,5 +179,9 @@ export class CartService {
     } catch {
       return [];
     }
+  }
+
+  private roundMoney(value: number): number {
+    return Math.round(value * 100) / 100;
   }
 }

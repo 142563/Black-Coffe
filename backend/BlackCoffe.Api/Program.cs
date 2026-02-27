@@ -203,12 +203,30 @@ static async Task EnsureDemoDataAsync(BlackCoffeDbContext db, ILogger logger)
         });
     }
 
+    if (!await db.Roles.AnyAsync(x => x.Name == RoleType.Worker.ToString()))
+    {
+        db.Roles.Add(new Role
+        {
+            Id = Guid.Parse("44444444-4444-4444-4444-444444444444"),
+            Name = RoleType.Worker.ToString()
+        });
+    }
+
     if (!await db.Roles.AnyAsync(x => x.Name == RoleType.Cliente.ToString()))
     {
         db.Roles.Add(new Role
         {
             Id = Guid.Parse("33333333-3333-3333-3333-333333333333"),
             Name = RoleType.Cliente.ToString()
+        });
+    }
+
+    if (!await db.Roles.AnyAsync(x => x.Name == RoleType.Customer.ToString()))
+    {
+        db.Roles.Add(new Role
+        {
+            Id = Guid.Parse("55555555-5555-5555-5555-555555555555"),
+            Name = RoleType.Customer.ToString()
         });
     }
 

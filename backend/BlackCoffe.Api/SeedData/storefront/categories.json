@@ -1,0 +1,6 @@
+[
+  { "key": "hot", "name": "Hot Drinks", "iconKey": "hot", "order": 1, "visible": true },
+  { "key": "cold", "name": "Cold Drinks", "iconKey": "cold", "order": 2, "visible": true },
+  { "key": "savory", "name": "Food - Savory", "iconKey": "savory", "order": 3, "visible": true },
+  { "key": "sweet", "name": "Food - Sweet", "iconKey": "sweet", "order": 4, "visible": true }
+]

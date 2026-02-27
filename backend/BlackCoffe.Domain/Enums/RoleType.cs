@@ -4,5 +4,7 @@ public enum RoleType
 {
     Admin = 1,
     Staff = 2,
-    Cliente = 3
+    Worker = 2,
+    Cliente = 3,
+    Customer = 3
 }

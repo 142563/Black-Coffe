@@ -250,3 +250,8 @@ C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Api\obj\Debug\net
 C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Api\obj\Debug\net8.0\ref\BlackCoffe.Api.dll
 C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Api\bin\Debug\net8.0\BlackCoffe.Api.xml
 C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Api\obj\Debug\net8.0\BlackCoffe.Api.xml
+C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Api\bin\Debug\net8.0\SeedData\storefront\banners.json
+C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Api\bin\Debug\net8.0\SeedData\storefront\categories.json
+C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Api\bin\Debug\net8.0\SeedData\storefront\featured.json
+C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Api\bin\Debug\net8.0\SeedData\storefront\settings.json
+C:\Users\julio\OneDrive\Desktop\Black Coffe\backend\BlackCoffe.Api\obj\Debug\net8.0\BlackCoffe.Api.sourcelink.json

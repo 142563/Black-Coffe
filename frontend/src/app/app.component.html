@@ -62,7 +62,7 @@
         </nav>
 
         <div class="ml-auto hidden items-center gap-2 md:flex">
-          <a class="btn-outline btn-small border-white text-white hover:bg-white hover:text-brand-black" routerLink="/login">Login</a>
+          <a *ngIf="!isLoggedIn" class="btn-outline btn-small border-white text-white hover:bg-white hover:text-brand-black" routerLink="/login">Login</a>
           <a *ngIf="isLoggedIn" class="btn-outline btn-small border-white/30 text-white hover:bg-white hover:text-brand-black" routerLink="/profile">
             Mi cuenta
           </a>
@@ -94,7 +94,7 @@
           </nav>
 
           <div class="mt-3 grid gap-2">
-            <a class="btn-outline" routerLink="/login">Login</a>
+            <a *ngIf="!isLoggedIn" class="btn-outline" routerLink="/login">Login</a>
             <a *ngIf="isLoggedIn" class="btn-outline" routerLink="/profile">Mi cuenta</a>
             <button *ngIf="isLoggedIn" class="btn-primary" type="button" (click)="logout()">Salir</button>
           </div>
@@ -154,9 +154,23 @@
       </ng-template>
 
       <div class="drawer-footer">
-        <div class="drawer-total">
-          <span>Subtotal</span>
-          <strong>Q{{ drawerSubtotal | number:'1.2-2' }}</strong>
+        <div class="drawer-total-grid">
+          <div class="drawer-total">
+            <span>Subtotal</span>
+            <strong>Q{{ drawerSubtotal | number:'1.2-2' }}</strong>
+          </div>
+          <div class="drawer-total">
+            <span>Envio</span>
+            <strong>Q{{ drawerShipping | number:'1.2-2' }} (Gratis)</strong>
+          </div>
+          <div class="drawer-total">
+            <span>IVA (12%)</span>
+            <strong>Q{{ drawerIvaAmount | number:'1.2-2' }}</strong>
+          </div>
+          <div class="drawer-total drawer-total--final">
+            <span>Total</span>
+            <strong>Q{{ drawerTotal | number:'1.2-2' }}</strong>
+          </div>
         </div>
         <div class="grid gap-2">
           <button class="btn-primary" type="button" [disabled]="drawerItems.length === 0" (click)="goToCheckout()">

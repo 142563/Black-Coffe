@@ -1,0 +1,22 @@
+[
+  {
+    "id": "b1",
+    "title": "Envio GRATIS",
+    "subtitle": "Por tiempo limitado",
+    "ctaText": "Ver menu",
+    "ctaLink": "/menu#hot",
+    "type": "highlight",
+    "active": true,
+    "order": 1
+  },
+  {
+    "id": "b2",
+    "title": "Recomendados del dia",
+    "subtitle": "Nuestros favoritos",
+    "ctaText": "Ver destacados",
+    "ctaLink": "/#featured",
+    "type": "promo",
+    "active": true,
+    "order": 2
+  }
+]
