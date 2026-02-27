@@ -1,0 +1,21 @@
+# Build artifacts
+**/bin/
+**/obj/
+
+# User/IDE
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Frontend artifacts
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+backend/BlackCoffe.Api/publish-test/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

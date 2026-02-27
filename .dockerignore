@@ -1,0 +1,13 @@
+.git
+.gitignore
+.vs
+.vscode
+
+frontend/node_modules
+frontend/.angular
+frontend/dist
+
+**/bin
+**/obj
+
+README.md

@@ -173,6 +173,15 @@ static async Task EnsureDatabaseReadyAsync(BlackCoffeDbContext db, ILogger logge
 {
     if (await db.Database.CanConnectAsync())
     {
+        var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
+        var migrationList = pendingMigrations as string[] ?? pendingMigrations.ToArray();
+        if (migrationList.Length > 0)
+        {
+            logger.LogInformation("Aplicando {Count} migraciones pendientes...", migrationList.Length);
+            await db.Database.MigrateAsync();
+            logger.LogInformation("Migraciones aplicadas correctamente.");
+        }
+
         return;
     }
 
