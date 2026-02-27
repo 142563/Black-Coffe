@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlackCoffe.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c21fe707065444137b83c76b3d7430a6421ae8b5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e57e925b19a37e0c51a1d6f4ed56969a10bcb75")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlackCoffe.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlackCoffe.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
