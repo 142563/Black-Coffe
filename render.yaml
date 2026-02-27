@@ -1,7 +1,7 @@
 services:
   - type: web
     name: blackcoffe-api
-    env: docker
+    runtime: docker
     dockerfilePath: ./Dockerfile
     plan: free
     autoDeploy: true
@@ -24,8 +24,9 @@ services:
       - key: Cors__AllowedOrigins__0
         sync: false
 
-  - type: static
+  - type: web
     name: blackcoffe-frontend
+    runtime: static
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist/frontend/browser
