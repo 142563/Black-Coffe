@@ -34,10 +34,10 @@ services:
     routes:
       - type: rewrite
         source: /api/v1/*
-        destination: https://blackcoffe-api.onrender.com/api/v1/:splat
+        destination: https://blackcoffe-api.onrender.com/api/v1/*
       - type: rewrite
         source: /api/*
-        destination: https://blackcoffe-api.onrender.com/api/:splat
+        destination: https://blackcoffe-api.onrender.com/api/*
       - type: rewrite
         source: /*
         destination: /index.html
