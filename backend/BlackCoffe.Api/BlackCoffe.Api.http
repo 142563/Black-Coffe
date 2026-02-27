@@ -1,0 +1,6 @@
+@BlackCoffe.Api_HostAddress = http://localhost:5064
+
+GET {{BlackCoffe.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

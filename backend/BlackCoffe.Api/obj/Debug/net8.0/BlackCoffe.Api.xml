@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlackCoffe.Api</name>
+    </assembly>
+    <members>
+        <member name="M:BlackCoffe.Api.Controllers.V1.AuthController.Register(BlackCoffe.Application.DTOs.Auth.RegisterRequest,System.Threading.CancellationToken)">
+            <summary>
+            Registra un nuevo cliente y devuelve tokens JWT.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.AuthController.Login(BlackCoffe.Application.DTOs.Auth.LoginRequest,System.Threading.CancellationToken)">
+            <summary>
+            Inicia sesion y devuelve tokens JWT.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.AuthController.Refresh(BlackCoffe.Application.DTOs.Auth.RefreshRequest,System.Threading.CancellationToken)">
+            <summary>
+            Renueva access token usando refresh token valido.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.BusinessConfigController.Business">
+            <summary>
+            Obtiene configuracion publica del negocio para personalizar el storefront.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.CatalogController.Categories(System.Threading.CancellationToken)">
+            <summary>
+            Lista categorias del catalogo.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.CatalogController.Products(System.Nullable{System.Guid},System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Lista productos con filtros opcionales de categoria y busqueda.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.CatalogController.MenuBoard(System.Threading.CancellationToken)">
+            <summary>
+            Obtiene carta estructurada para renderizado directo del menu.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.OrdersController.Create(BlackCoffe.Application.DTOs.Orders.CreateOrderRequest,System.Threading.CancellationToken)">
+            <summary>
+            Crea un pedido para el usuario autenticado.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.OrdersController.My(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Lista los pedidos del usuario autenticado.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.ReservationsController.Create(BlackCoffe.Application.DTOs.Reservations.CreateReservationRequest,System.Threading.CancellationToken)">
+            <summary>
+            Crea una reserva para el usuario autenticado.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.ReservationsController.My(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Lista las reservas del usuario autenticado.
+            </summary>
+        </member>
+        <member name="M:BlackCoffe.Api.Controllers.V1.UsersController.Me(System.Threading.CancellationToken)">
+            <summary>
+            Obtiene perfil del usuario autenticado.
+            </summary>
+        </member>
+    </members>
+</doc>

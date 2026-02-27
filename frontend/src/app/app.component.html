@@ -1,0 +1,175 @@
+<div class="app-surface min-h-screen flex flex-col bg-brand-white">
+  <header
+    class="sticky inset-x-0 top-0 z-50 border-b border-brand-gray1 transition duration-200 backdrop-blur"
+    [ngClass]="isScrolled ? 'bg-brand-black/80 shadow-soft-lg' : 'bg-brand-black/90'"
+  >
+    <div class="page-shell">
+      <div class="flex h-20 items-center gap-3">
+        <a class="flex min-w-0 items-center gap-3" routerLink="/" aria-label="Ir al inicio de Black Coffe">
+          <img
+            class="h-12 w-12 rounded-xl border border-white/20 object-cover"
+            src="assets/logo-black-coffe.jpeg"
+            alt="Black Coffe"
+          />
+          <div class="hidden min-w-0 sm:block">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-brand-caramel">Black Coffe</p>
+            <p class="truncate text-sm text-white/85">Mas que una bebida... es un estilo de vida.</p>
+          </div>
+        </a>
+
+        <nav #desktopNav class="relative ml-2 hidden flex-1 items-center justify-center gap-1 md:flex">
+          <span class="nav-pill" [ngStyle]="navPillStyle"></span>
+
+          <a
+            #desktopNavLink
+            data-route="/"
+            data-exact="true"
+            class="nav-link"
+            [class.active]="isRouteActive('/', true)"
+            routerLink="/"
+          >
+            Inicio
+          </a>
+          <a
+            #desktopNavLink
+            data-route="/catalog"
+            class="nav-link"
+            [class.active]="isRouteActive('/catalog')"
+            routerLink="/catalog"
+          >
+            Menu
+          </a>
+          <button
+            #desktopNavLink
+            data-route="/cart"
+            type="button"
+            class="nav-link"
+            [class.active]="isRouteActive('/cart') || cartDrawerOpen"
+            (click)="openCartDrawer()"
+          >
+            Carrito
+            <span class="badge" [class.bump]="cartBadgeBump">{{ cartCount }}</span>
+          </button>
+          <a
+            #desktopNavLink
+            data-route="/reservations"
+            class="nav-link"
+            [class.active]="isRouteActive('/reservations')"
+            routerLink="/reservations"
+          >
+            Reservas
+          </a>
+        </nav>
+
+        <div class="ml-auto hidden items-center gap-2 md:flex">
+          <a class="btn-outline btn-small border-white text-white hover:bg-white hover:text-brand-black" routerLink="/login">Login</a>
+          <a *ngIf="isLoggedIn" class="btn-outline btn-small border-white/30 text-white hover:bg-white hover:text-brand-black" routerLink="/profile">
+            Mi cuenta
+          </a>
+          <button *ngIf="isLoggedIn" class="btn-primary btn-small" type="button" (click)="logout()">Salir</button>
+        </div>
+
+        <button
+          class="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/20 text-white md:hidden"
+          type="button"
+          aria-label="Abrir menu"
+          [attr.aria-expanded]="mobileMenuOpen"
+          aria-controls="mobile-navigation"
+          (click)="toggleMobileMenu()"
+        >
+          <app-icon name="menu" [size]="22"></app-icon>
+        </button>
+      </div>
+
+      <div id="mobile-navigation" class="pb-3 md:hidden" [class.hidden]="!mobileMenuOpen">
+        <div class="rounded-2xl border border-brand-gray1 bg-brand-white p-3 shadow-soft">
+          <nav class="grid gap-1">
+            <a class="nav-link-mobile" [class.active]="isRouteActive('/', true)" routerLink="/">Inicio</a>
+            <a class="nav-link-mobile" [class.active]="isRouteActive('/catalog')" routerLink="/catalog">Menu</a>
+            <button class="nav-link-mobile" [class.active]="isRouteActive('/cart') || cartDrawerOpen" type="button" (click)="openCartDrawer()">
+              <span>Carrito</span>
+              <span class="badge" [class.bump]="cartBadgeBump">{{ cartCount }}</span>
+            </button>
+            <a class="nav-link-mobile" [class.active]="isRouteActive('/reservations')" routerLink="/reservations">Reservas</a>
+          </nav>
+
+          <div class="mt-3 grid gap-2">
+            <a class="btn-outline" routerLink="/login">Login</a>
+            <a *ngIf="isLoggedIn" class="btn-outline" routerLink="/profile">Mi cuenta</a>
+            <button *ngIf="isLoggedIn" class="btn-primary" type="button" (click)="logout()">Salir</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 pb-24 pt-10">
+    <div class="page-shell space-y-8">
+      <nav class="breadcrumb" *ngIf="breadcrumbs.length > 0" aria-label="Breadcrumb">
+        <a [routerLink]="breadcrumbs[0].url">{{ breadcrumbs[0].label }}</a>
+        <span>/</span>
+        <span>{{ breadcrumbs[1].label }}</span>
+      </nav>
+
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+  <div class="drawer-root" [class.is-open]="cartDrawerOpen">
+    <div class="drawer-overlay" (click)="closeCartDrawer()"></div>
+
+    <aside class="drawer-panel" role="dialog" aria-modal="true" aria-label="Carrito">
+      <div class="drawer-header">
+        <div class="inline-flex items-center gap-2">
+          <app-icon name="cart" [size]="20" className="text-brand-caramel"></app-icon>
+          <h2>Carrito</h2>
+        </div>
+        <button type="button" class="drawer-close" (click)="closeCartDrawer()">x</button>
+      </div>
+
+      <div class="drawer-body" *ngIf="drawerItems.length > 0; else emptyCartDrawer">
+        <article class="drawer-item" *ngFor="let item of drawerItems">
+          <div class="drawer-item__meta">
+            <h3>{{ item.name }}</h3>
+            <p>Q{{ item.unitPrice | number:'1.2-2' }} c/u</p>
+          </div>
+          <div class="drawer-item__actions">
+            <div class="counter counter--line">
+              <button class="counter__btn" type="button" (click)="decreaseDrawerItem(item.productId)">-</button>
+              <span class="counter__value">{{ item.quantity }}</span>
+              <button class="counter__btn" type="button" (click)="increaseDrawerItem(item.productId)">+</button>
+            </div>
+            <button class="btn-outline btn-small" type="button" (click)="removeDrawerItem(item.productId)">Quitar</button>
+          </div>
+        </article>
+      </div>
+
+      <ng-template #emptyCartDrawer>
+        <div class="drawer-empty">
+          <app-icon name="coffee" [size]="30" className="text-brand-caramel"></app-icon>
+          <h3>Tu carrito esta vacio ☕</h3>
+          <p>Explora el menu para agregar tus favoritos.</p>
+          <button class="btn-primary" type="button" (click)="closeCartDrawer()" routerLink="/catalog">Ver menu</button>
+        </div>
+      </ng-template>
+
+      <div class="drawer-footer">
+        <div class="drawer-total">
+          <span>Subtotal</span>
+          <strong>Q{{ drawerSubtotal | number:'1.2-2' }}</strong>
+        </div>
+        <div class="grid gap-2">
+          <button class="btn-primary" type="button" [disabled]="drawerItems.length === 0" (click)="goToCheckout()">
+            Ir a pagar / Confirmar pedido
+          </button>
+          <div class="grid grid-cols-2 gap-2">
+            <button class="btn-outline" type="button" (click)="goToCartPage()">Ver carrito</button>
+            <button class="btn-outline" type="button" [disabled]="drawerItems.length === 0" (click)="clearDrawerItems()">Vaciar</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <app-toast></app-toast>
+</div>
