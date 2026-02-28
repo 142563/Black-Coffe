@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlackCoffe.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fa2c19e11c51e00b925eca793f00b437566538d5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10ffc8e3174c1e69f8af1408a1c764e792302b60")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlackCoffe.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlackCoffe.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
