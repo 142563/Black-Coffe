@@ -81,6 +81,14 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.cart.grandTotal;
   }
 
+  get isHomeRoute(): boolean {
+    return this.currentUrl === '/';
+  }
+
+  get isHomeHeroOverlay(): boolean {
+    return this.isHomeRoute && !this.isScrolled && !this.mobileMenuOpen && !this.cartDrawerOpen;
+  }
+
   ngOnInit(): void {
     this.currentUrl = this.normalizeUrl(this.router.url);
     this.updateBreadcrumbs();

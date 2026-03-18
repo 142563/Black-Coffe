@@ -141,16 +141,275 @@
     @apply transition duration-200 hover:text-brand-black hover:underline;
   }
 
-  .hero-card {
-    @apply relative overflow-hidden rounded-3xl border border-brand-gray1 bg-white p-6 shadow-soft sm:p-8;
+  .home-page {
+    @apply bg-black text-brand-white;
   }
 
-  .hero-card__ornament {
-    @apply pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full border border-brand-caramel/35;
+  .home-page__content {
+    @apply pb-16 pt-28;
   }
 
-  .hero-card__content {
-    @apply relative z-10 grid gap-5 lg:max-w-3xl;
+  .hero-stage {
+    @apply relative isolate overflow-hidden bg-black text-brand-white;
+    min-height: 100svh;
+  }
+
+  .hero-stage__noise {
+    @apply pointer-events-none absolute inset-0 opacity-30;
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.014) 0px,
+      rgba(255, 255, 255, 0.014) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+  }
+
+  .hero-stage__vignette {
+    @apply pointer-events-none absolute inset-0;
+    background:
+      radial-gradient(circle at center, rgba(0, 0, 0, 0) 38%, rgba(0, 0, 0, 0.38) 76%, rgba(0, 0, 0, 0.78) 100%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.08) 28%, rgba(0, 0, 0, 0.58) 100%);
+  }
+
+  .hero-stage__cursor-light,
+  .hero-stage__cursor-ember,
+  .hero-stage__glow {
+    @apply pointer-events-none absolute rounded-full;
+  }
+
+  .hero-stage__cursor-light {
+    inset: -16%;
+    background:
+      radial-gradient(
+        circle at var(--pointer-x) var(--pointer-y),
+        rgba(252, 225, 177, 0.26) 0%,
+        rgba(207, 151, 69, 0.22) 10%,
+        rgba(145, 86, 26, 0.12) 24%,
+        rgba(0, 0, 0, 0) 48%
+      );
+    filter: blur(14px);
+    transition: background-position 160ms ease-out, opacity 180ms ease-out;
+  }
+
+  .hero-stage__cursor-ember {
+    width: 36rem;
+    height: 36rem;
+    left: calc(var(--pointer-x) - 18rem);
+    top: calc(var(--pointer-y) - 18rem);
+    background: radial-gradient(circle, rgba(198, 161, 91, 0.3) 0%, rgba(198, 161, 91, 0) 62%);
+    filter: blur(36px);
+    opacity: 0.76;
+    transition: left 140ms ease-out, top 140ms ease-out, opacity 180ms ease-out;
+  }
+
+  .hero-stage__glow--left {
+    width: 36rem;
+    height: 36rem;
+    left: -16rem;
+    top: 10%;
+    background: rgba(154, 106, 42, 0.17);
+    filter: blur(90px);
+  }
+
+  .hero-stage__glow--right {
+    width: 34rem;
+    height: 34rem;
+    right: -12rem;
+    bottom: 2%;
+    background: rgba(198, 161, 91, 0.13);
+    filter: blur(96px);
+  }
+
+  .hero-stage__rim {
+    @apply pointer-events-none absolute inset-x-0 z-[1];
+    height: 7rem;
+  }
+
+  .hero-stage__rim--top {
+    top: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0) 100%);
+  }
+
+  .hero-stage__rim--bottom {
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.72) 100%);
+  }
+
+  .hero-stage__viewport {
+    @apply relative z-10 flex min-h-[inherit] flex-col items-center justify-center gap-6 px-5 pb-14 pt-28 text-center sm:px-8 sm:pb-16 sm:pt-32;
+  }
+
+  .hero-stage__cup-track {
+    @apply relative flex w-full flex-[0_0_auto] items-center justify-center;
+    min-height: 31.5rem;
+    perspective: 1800px;
+  }
+
+  .hero-stage__cup-float {
+    @apply relative;
+    width: 22.5rem;
+    height: 29.5rem;
+  }
+
+  .hero-stage__cup-tilt {
+    @apply relative h-full w-full;
+    transform-style: preserve-3d;
+    transition: transform 180ms ease-out;
+    will-change: transform;
+  }
+
+  .hero-stage__cup-shadow {
+    @apply absolute left-1/2 rounded-full;
+    width: 68%;
+    height: 1.8rem;
+    bottom: 1.2rem;
+    transform: translateX(-50%) scale(1.02);
+    background: rgba(0, 0, 0, 0.92);
+    filter: blur(14px);
+  }
+
+  .hero-stage--ready .hero-stage__cup-shadow {
+    animation: hero-shadow-breathe 6200ms ease-in-out 1500ms infinite;
+  }
+
+  .hero-stage__cup-aura {
+    @apply pointer-events-none absolute left-1/2 top-1/2 rounded-full;
+    width: 24rem;
+    height: 24rem;
+    transform: translate(-50%, -46%);
+    background: radial-gradient(circle, rgba(239, 197, 124, 0.32) 0%, rgba(239, 197, 124, 0.08) 28%, rgba(239, 197, 124, 0) 66%);
+    filter: blur(36px);
+    opacity: 0;
+  }
+
+  .hero-stage--ready .hero-stage__cup-aura {
+    animation: hero-glow-rise 1500ms ease-out 500ms forwards;
+  }
+
+  .hero-stage__cup-render {
+    @apply absolute inset-0 h-full w-full;
+    opacity: 0;
+    transform: translateY(-1rem) scale(0.94);
+    transform-origin: center;
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+
+  .hero-stage--ready .hero-stage__cup-render {
+    animation: hero-cup-render-reveal 980ms cubic-bezier(0.18, 0.92, 0.24, 1) forwards;
+  }
+
+  .hero-stage__cup-render canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.24));
+  }
+
+  .hero-stage__brand {
+    @apply relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-3 pb-1;
+    margin-top: -0.25rem;
+    transition: transform 180ms ease-out;
+  }
+
+  .hero-stage__logo {
+    @apply h-14 w-14 rounded-2xl border border-white/20 object-cover shadow-soft;
+  }
+
+  .hero-stage__brand-name {
+    @apply m-0 text-[11px] font-semibold uppercase tracking-[0.42em] text-brand-caramel sm:text-xs;
+  }
+
+  .hero-stage__headline {
+    @apply m-0 text-4xl font-black leading-none tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl;
+  }
+
+  .hero-stage__subheadline {
+    @apply m-0 text-xl font-medium text-[#f3e6d3] sm:text-2xl lg:text-[1.9rem];
+  }
+
+  .hero-stage__tagline {
+    @apply m-0 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base;
+  }
+
+  .home-page__featured {
+    margin-top: 7rem;
+  }
+
+  .home-page .card,
+  .home-page .panel,
+  .home-page .featured-card,
+  .home-page .step-card,
+  .home-page .info-card {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(17, 17, 18, 0.96) 0%, rgba(11, 11, 12, 0.96) 100%);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.34);
+    color: #f8f8f8;
+  }
+
+  .home-page .section__eyebrow,
+  .home-page .banner-card p,
+  .home-page .feature-card p,
+  .home-page .featured-card p,
+  .home-page .step-card p,
+  .home-page .info-card p {
+    color: rgba(248, 248, 248, 0.66);
+  }
+
+  .home-page .section__title,
+  .home-page .banner-card h2,
+  .home-page .feature-card h2,
+  .home-page .featured-card h3,
+  .home-page .step-card h3,
+  .home-page .info-card h3 {
+    color: #f8f8f8;
+  }
+
+  .hero-stage__actions {
+    @apply flex flex-wrap items-center justify-center gap-3 pt-3;
+  }
+
+  .hero-stage__cta-primary {
+    box-shadow: 0 12px 30px rgba(198, 161, 91, 0.2);
+  }
+
+  .hero-stage__cta-secondary {
+    @apply border-white/25 text-white hover:bg-white hover:text-brand-black;
+  }
+
+  .hero-stage__reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(10px);
+  }
+
+  .hero-stage--ready .hero-stage__reveal {
+    animation: hero-content-reveal 620ms ease-out forwards;
+  }
+
+  .hero-stage--ready .hero-stage__reveal--logo {
+    animation-delay: 1220ms;
+  }
+
+  .hero-stage--ready .hero-stage__reveal--brand {
+    animation-delay: 1320ms;
+  }
+
+  .hero-stage--ready .hero-stage__reveal--headline {
+    animation-delay: 1440ms;
+  }
+
+  .hero-stage--ready .hero-stage__reveal--subheadline {
+    animation-delay: 1540ms;
+  }
+
+  .hero-stage--ready .hero-stage__reveal--tagline {
+    animation-delay: 1660ms;
+  }
+
+  .hero-stage--ready .hero-stage__reveal--actions {
+    animation-delay: 1780ms;
   }
 
   .feature-card {
@@ -700,6 +959,62 @@
   }
 }
 
+@keyframes hero-cup-render-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-1rem) scale(0.94);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(0.3rem) scale(1.015);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-cup-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes hero-glow-rise {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -48%) scale(1);
+  }
+}
+
+@keyframes hero-shadow-breathe {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1.04);
+    opacity: 0.74;
+  }
+  50% {
+    transform: translateX(-50%) scale(0.92);
+    opacity: 0.5;
+  }
+}
+
+@keyframes hero-content-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
 @keyframes badge-bump {
   0% {
     transform: scale(1);
@@ -734,6 +1049,47 @@
 }
 
 @media (max-width: 767px) {
+  .hero-stage {
+    min-height: calc(100svh - 0.5rem);
+  }
+
+  .hero-stage__viewport {
+    padding-top: 6.8rem;
+    padding-bottom: 2.75rem;
+    gap: 1.75rem;
+  }
+
+  .hero-stage__cup-track {
+      min-height: 23rem;
+    }
+
+    .hero-stage__cup-float {
+      width: 16.25rem;
+      height: 21.5rem;
+    }
+
+  .hero-stage__cup-shadow {
+    bottom: 0.85rem;
+  }
+
+  .hero-stage__headline {
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+  }
+
+  .hero-stage__subheadline {
+    font-size: 1.1rem;
+  }
+
+  .hero-stage__actions {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .hero-stage__actions .btn-primary,
+  .hero-stage__actions .btn-outline {
+    width: 100%;
+  }
+
   .menu-chip-bar {
     top: 5.2rem;
   }
@@ -782,6 +1138,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-stage__cup-render,
+  .hero-stage__cup-float,
+  .hero-stage__cup-shadow,
+  .hero-stage__cup-aura,
+  .hero-stage__reveal,
+  .hero-stage__cursor-ember {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
   .fade-up,
   .badge.bump {
     animation: none !important;
@@ -812,5 +1180,25 @@
     border: 0 !important;
     box-shadow: none !important;
     padding: 0 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-stage__viewport {
+    padding-top: 8.8rem;
+    padding-bottom: 3.6rem;
+  }
+
+  .hero-stage__cup-track {
+      min-height: 35rem;
+    }
+
+    .hero-stage__cup-float {
+      width: 25rem;
+      height: 32rem;
+    }
+
+  .hero-stage__brand {
+    max-width: 48rem;
   }
 }

@@ -12,7 +12,11 @@
 frontend/node_modules/
 frontend/dist/
 frontend/.angular/
+storefront-next/node_modules/
+storefront-next/.next/
+storefront-next/.env.local
 backend/BlackCoffe.Api/publish-test/
+**/__pycache__/
 
 # Logs
 *.log

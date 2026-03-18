@@ -1,7 +1,11 @@
-<div class="app-surface min-h-screen flex flex-col bg-brand-white">
+<div class="app-surface min-h-screen flex flex-col" [ngClass]="isHomeRoute ? 'bg-black' : 'bg-brand-white'">
   <header
     class="sticky inset-x-0 top-0 z-50 border-b border-brand-gray1 transition duration-200 backdrop-blur"
-    [ngClass]="isScrolled ? 'bg-brand-black/80 shadow-soft-lg' : 'bg-brand-black/90'"
+    [ngClass]="
+      isHomeHeroOverlay
+        ? 'border-transparent bg-black/88 shadow-none backdrop-blur-sm'
+        : (isScrolled ? 'border-brand-gray1 bg-brand-black/80 shadow-soft-lg' : 'border-brand-gray1 bg-brand-black/90')
+    "
   >
     <div class="page-shell">
       <div class="flex h-20 items-center gap-3">
@@ -103,16 +107,22 @@
     </div>
   </header>
 
-  <main class="flex-1 pb-24 pt-10">
-    <div class="page-shell space-y-8">
-      <nav class="breadcrumb" *ngIf="breadcrumbs.length > 0" aria-label="Breadcrumb">
-        <a [routerLink]="breadcrumbs[0].url">{{ breadcrumbs[0].label }}</a>
-        <span>/</span>
-        <span>{{ breadcrumbs[1].label }}</span>
-      </nav>
-
+  <main [ngClass]="isHomeRoute ? 'flex-1 pb-24 pt-0' : 'flex-1 pb-24 pt-10'">
+    <ng-container *ngIf="isHomeRoute; else standardPageLayout">
       <router-outlet></router-outlet>
-    </div>
+    </ng-container>
+
+    <ng-template #standardPageLayout>
+      <div class="page-shell space-y-8">
+        <nav class="breadcrumb" *ngIf="breadcrumbs.length > 0" aria-label="Breadcrumb">
+          <a [routerLink]="breadcrumbs[0].url">{{ breadcrumbs[0].label }}</a>
+          <span>/</span>
+          <span>{{ breadcrumbs[1].label }}</span>
+        </nav>
+
+        <router-outlet></router-outlet>
+      </div>
+    </ng-template>
   </main>
 
   <div class="drawer-root" [class.is-open]="cartDrawerOpen">
