@@ -1,6 +1,6 @@
 # Black Coffe Storefront Next
 
-Nuevo storefront publico para Black Coffe construido en:
+Storefront publico oficial para Black Coffe construido en:
 
 - Next.js App Router
 - React + TypeScript
@@ -11,11 +11,10 @@ Nuevo storefront publico para Black Coffe construido en:
 
 ## Objetivo
 
-Este proyecto reemplaza gradualmente el frontend publico en Angular sin tocar:
-
-- backend `.NET`
-- contratos HTTP existentes
-- storage keys del navegador
+Este proyecto es el frontend publico activo del repositorio:
+- no cambia el backend `.NET`
+- mantiene contratos HTTP existentes
+- conserva `black_coffe_auth` y `black_coffe_cart`
 
 ## Variables de entorno
 
@@ -50,8 +49,14 @@ El storefront queda en `http://localhost:4200`.
 - Frontend: Vercel
 - API: Render
 
+### Configuracion recomendada en Vercel
+1. Importa el repositorio.
+2. Define `Root Directory` = `storefront-next`.
+3. Framework = `Next.js`.
+4. Variable:
+   - `NEXT_PUBLIC_API_BASE_URL=https://blackcoffe-api.onrender.com`
+
 ## Notas
 
 - `black_coffe_auth` y `black_coffe_cart` se mantienen iguales para una transicion limpia.
 - El hero premium actual usa ilustracion + motion, no depende de WebGL ni de un modelo GLB.
-- Este proyecto reemplaza gradualmente el storefront Angular, pero el deploy actual en Render sigue usando `frontend/`.

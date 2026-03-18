@@ -2,13 +2,12 @@
 
 Plataforma de cafetería con:
 - `backend/` ASP.NET Core Web API (.NET 8 + PostgreSQL/Neon)
-- `frontend/` Angular + Tailwind
-- `storefront-next/` Next.js + Tailwind para el nuevo storefront en paralelo
+- `storefront-next/` Next.js + Tailwind como storefront público oficial
 
 ## Estado actual
-- Producción actual en Render: `frontend/`
-- Nuevo storefront en desarrollo: `storefront-next/`
-- Backend productivo: `backend/`
+- Frontend público objetivo: `storefront-next/` en Vercel
+- Backend productivo: `backend/` en Render
+- Base de datos: Neon
 
 ## Desarrollo local
 Backend:
@@ -18,14 +17,7 @@ $env:ConnectionStrings__DefaultConnection="postgresql://..."
 dotnet run --project backend/BlackCoffe.Api --urls "http://localhost:5088"
 ```
 
-Frontend actual:
-```powershell
-cd "C:\Users\julio\OneDrive\Desktop\Black Coffe\frontend"
-npm install
-npm start
-```
-
-Nuevo storefront:
+Storefront público:
 ```powershell
 cd "C:\Users\julio\OneDrive\Desktop\Black Coffe\storefront-next"
 npm install

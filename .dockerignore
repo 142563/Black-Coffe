@@ -2,12 +2,11 @@
 .gitignore
 .vs
 .vscode
-
-frontend/node_modules
-frontend/.angular
-frontend/dist
-
+frontend
+storefront-next/node_modules
+storefront-next/.next
+storefront-next/.vercel
+storefront-next/.env.local
 **/bin
 **/obj
-
 README.md

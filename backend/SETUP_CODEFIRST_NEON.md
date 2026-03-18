@@ -30,6 +30,6 @@ El backend valida/ajusta este usuario demo al iniciar:
 
 Ahora el repositorio esta separado en:
 - `backend/` (API .NET)
-- `frontend/` (Angular)
+- `storefront-next/` (Next.js)
 
-La ejecucion recomendada es manual en dos terminales: primero backend y luego frontend.
+La ejecucion recomendada es manual en dos terminales: primero backend y luego storefront.
