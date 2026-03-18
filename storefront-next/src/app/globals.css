@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 20% 16%, rgba(117, 73, 22, 0.18), transparent 28%),
+      radial-gradient(circle at 54% 44%, rgba(173, 121, 46, 0.16), transparent 22%),
+      linear-gradient(180deg, #060504 0%, #070504 100%);
+    color: #f8f2e9;
+    font-family: var(--font-inter), sans-serif;
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(198, 161, 91, 0.45);
+    color: #090705;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  a,
+  button {
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease,
+      opacity 180ms ease,
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply mx-auto w-full max-w-[88rem] px-4 sm:px-6 lg:px-10;
+  }
+
+  .section-panel {
+    @apply rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-[0_24px_70px_rgba(0,0,0,0.35)] backdrop-blur;
+  }
+
+  .section-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.34em] text-[#c6a15b];
+  }
+
+  .page-title {
+    @apply mt-4 text-3xl font-semibold text-white sm:text-4xl;
+    font-family: var(--font-display), serif;
+  }
+
+  .muted-copy {
+    @apply mt-4 max-w-3xl text-sm leading-7 text-white/64 sm:text-base;
+  }
+
+  .button-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-[#c6a15b] px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-black shadow-[0_12px_34px_rgba(198,161,91,0.24)] hover:bg-[#d8b36a];
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-white/15 px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-white hover:border-white/35 hover:bg-white/5;
+  }
+
+  .input-field {
+    @apply w-full rounded-[1.25rem] border border-white/10 bg-black/35 px-4 py-3.5 text-sm text-white placeholder:text-white/30 focus:border-[#c6a15b] focus:outline-none focus:ring-2 focus:ring-[#c6a15b]/25;
+  }
+
+  .empty-card {
+    @apply rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 text-center shadow-[0_24px_70px_rgba(0,0,0,0.35)] backdrop-blur;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+}
